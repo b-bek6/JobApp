@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken")
 const User = require("../Model/User");
 const bcrypt = require('bcrypt');
 
@@ -18,7 +19,8 @@ const login = async (req, res, next) => {
         let status = await bcrypt.compare(req.body.password, isFound.password);
         if(status){
             let obj = {...user.toObject()}
-            return res.send({data:obj});
+            let token = jwt.sign(obj, process.env.JWT_SECRET);
+            return res.send({data:obj, token});
         }
     }
     return res.status(401).send({msg:"Invalid Email or Password"})
