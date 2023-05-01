@@ -3,12 +3,34 @@ const User = require('../Model/User');
 
 
 const fetchJobs = async (req, res, next) => {
-    try {
-        let users = await Jobs.find({});
-        res.send({data:users});
-    } catch (err) {
-        next(err);
+    let per_page = parseInt(req.query.per_page) || 5;
+    let page = parseInt(req.query.page) || 1;
+    let search_term = req.query.search_term || "";
+    console.log(req.query.search_term);
+    
+    let sort_by = req.query.sort_by || {};
+    switch(sort_by){
+        case "jobnameasc":
+            break
     }
+    let jobs = await Jobs.aggregate([
+        {
+            $match: {
+                $or:[
+                    {name:RegExp(search_term,"i")},
+                    {category:RegExp(search_term,"i")},
+                    {type:RegExp(search_term,"i")}
+                ]
+            }
+        },
+        {
+            $facet: {
+                meta_data:[{$count:"total"},{$addFields:{per_page,page}}],
+                jobs:[{$skip:((page-1)*per_page)},{$limit:per_page}]
+            }
+        }
+    ])
+    res.send({data:jobs})
 }
 const storeJobs = async (req, res, next) => {
     try {

@@ -41,14 +41,16 @@ const JobSchema = new Schema({
         default: 0,
     },
     deadline:{
-        type: String,
+        type: Date,
     },
     type:{
         type: String,
         enum:[TOP,HOT,FEATURED,NORMAL]
     },
     created_at:{
-        type:String,
+        type:Date,
+        default:Date.now,
+        required:true,
     },
     description: {
         type: String
