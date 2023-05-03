@@ -16,14 +16,13 @@ const checkAuthentication = (req, res, next) => {
     }
     res.status(401).send({msg: "unauthenticated"})
 }
-
 const isJobseeker = (req, res, next) => {
     if(req.user.role == JOBSEEKER){
         next()
     } else {
         res.status(403).send({msg: "Access denied - only for Jobseeker"})
     }
-} 
+}
 const isEmployer = (req, res, next) => {
     if(req.user.role == EMPLOYER){
         next();
@@ -32,7 +31,7 @@ const isEmployer = (req, res, next) => {
         res.status(403).send({msg: "Access denied - only for Employer"})
     }
     
-} 
+}
 module.exports = {
     checkAuthentication,
     isJobseeker,

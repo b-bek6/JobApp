@@ -17,6 +17,5 @@ const validateSchema = (Schema) => {
             next();
         }
     }
-
 }
 module.exports = validateSchema;

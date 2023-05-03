@@ -24,7 +24,7 @@ router.get("/", fetchJobs);
 router.post("/", validateSchema(JobsSchema),checkAuthentication, isEmployer, storeJobs);
 router.put("/:id",checkAuthentication, isEmployer, updateJobs);
 router.delete("/:id",checkAuthentication, isEmployer, removeJobs);
-// router.delete("/:id", checkAuthentication, isEmployer, removeJobs);
+
 
 
 module.exports = router;
