@@ -1,6 +1,6 @@
 const Jobs = require('../Model/Jobs');
 const User = require('../Model/User');
-
+const multer = require ('multer');
 
 const fetchJobs = async (req, res, next) => {
     let per_page = parseInt(req.query.per_page) || 5;
@@ -33,13 +33,36 @@ const fetchJobs = async (req, res, next) => {
     res.send({data:jobs})
 }
 const storeJobs = async (req, res, next) => {
+    let images = [];
     try {
-        let job = await Jobs.create({...req.body, created_by:req.user._id});
+        if (req.files.images) {
+            const storage = multer.diskStorage({
+                destination: function(req, file, cb) {
+                  cb(null, "/uploads");
+                },
+                filename: function(req, file, cb) {
+                  cb(null, `${Date.now()}-${file.originalname}`);
+                }
+              });
+              const upload = multer({ storage : storage });
+            for (let i = 0; i < req.files?.images.length; i++) {
+             console.log(req.files.images[i].name)
+              upload.array('images')(req, res, function(err) {
+                if (err) {
+                  next(err);
+                } else {
+                  images.push(req.file.filename);
+                }
+              });
+            }
+          }
+        let job = await Jobs.create({...req.body, images, created_by:req.user._id});
         res.send(job);
     } catch (err) {
         next(err);
     }
 }
+
 
 const updateJobs = async(req, res, next) => {
     try {

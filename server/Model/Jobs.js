@@ -28,7 +28,7 @@ const JobSchema = new Schema({
     no_of_vacancy:{
         type: Number,
         required: true,
-        default: 0,
+        default: 1,
     },
     location:{
         type: String,
