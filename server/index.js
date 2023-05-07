@@ -1,4 +1,5 @@
 const express = require("express");
+const multer = require("multer");
 require('./config/database');
 require('dotenv').config();
 const fileUpload = require("express-fileupload");
@@ -8,10 +9,14 @@ const jobs_route = require('./router/jobs');
 const jobs_apply = require('./router/apply');
 app.use(express.static('uploads'));
 
+
+
+
 // MIDDLEWARE
 app.use(express.json()); // req.body (change incomming req to the json format)
 app.use(express.urlencoded({extended:false}));
 app.use(fileUpload());
+
 
 
 app.use((req, res, next) => {
