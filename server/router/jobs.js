@@ -6,7 +6,7 @@ const validateSchema = require('../middleware/validateSchema');
 const router = express.Router();
 
 const JobsSchema = Joi.object({
-    name:Joi.string().max(255).required(),
+    name:Joi.string().max(255),
     joblevel:Joi.string(),
     category:Joi.string(),
     no_of_vacancy:Joi.number(),
@@ -20,8 +20,22 @@ const JobsSchema = Joi.object({
     created_by:Joi.string(),
 })
 
+// image store
+const multer = require("multer");
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+      cb(null, "./uploads");
+    },
+    filename: function(req, file, cb) {
+      cb(null, `${Date.now()}-${file.originalname}`);
+    }
+  });
+  const upload = multer({ storage : storage });
+
+
+
 router.get("/", fetchJobs);
-router.post("/", validateSchema(JobsSchema),checkAuthentication, isEmployer, storeJobs);
+router.post("/",validateSchema(JobsSchema),checkAuthentication, isEmployer, upload.array('image'), storeJobs);
 router.put("/:id",checkAuthentication, isEmployer, updateJobs);
 router.delete("/:id",checkAuthentication, isEmployer, removeJobs);
 
