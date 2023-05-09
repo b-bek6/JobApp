@@ -30,10 +30,14 @@ const JobSchema = new Schema({
         required: true,
         default: 1,
     },
+    company_name:{
+        type: String,
+        maxlength: 255, 
+    },
     location:{
         type: String,
         required: true,
-        default: 255,
+        maxlength: 255,
     },
     offered_salary:{
         type: Number,

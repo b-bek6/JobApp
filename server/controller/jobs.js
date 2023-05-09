@@ -1,6 +1,7 @@
+const path = require('path');
 const Jobs = require('../Model/Jobs');
 const User = require('../Model/User');
-const multer = require ('multer');
+const fs = require('fs');
 
 const fetchJobs = async (req, res) => {
     let per_page = parseInt(req.query.per_page) || 5;
@@ -33,13 +34,15 @@ const fetchJobs = async (req, res) => {
     res.send({data:jobs})
 }
 const storeJobs = async (req, res, next) => {
-    console.log(req.files);
-    let images = []
-    for (let index = 0; index < req.files.length; index++) {
-        images.push(req.files[index].filename);
-    }
+    // console.log(req.files);
+    // let images = []
+    // for (let index = 0; index < req.files.length; index++) {
+    //     images.push(req.files[index].filename);
+    // }
+    console.log(req.file);
+    let image = req.file.filename;
     try {
-        let job = await Jobs.create({...req.body, images:images, created_by:req.user._id});
+        let job = await Jobs.create({...req.body, images:image, created_by:req.user._id});
         res.send(job);
     } catch (err) {
         res.send(err);
@@ -48,7 +51,26 @@ const storeJobs = async (req, res, next) => {
 
 
 const updateJobs = async(req, res, next) => {
+    let job_data = await Jobs.findById(req.params.id);
+    let old_image = job_data.images
+    let sent_image = req.params.image
+    let image = [];
+    old_image.forEach(img=>{
+        if(sent_image){
+            images.push(sent_image);
+            fs.unlinkSync(path.resolve("uploads",img))
+            
+        }
+    })
+    // old_image.forEach(img => {
+    //     if(sent_images?.includes(img)){
+    //         images.push(img);
+    //     } else {
+    //         fs.unlinkSync(path.resolve("uploads",img))
+    //     }
+    // })
     try {
+        let img = req.file.image.name
         let product = await Jobs.findByIdAndUpdate(req.params.id, {...req.body}, {runValidators:true, new: true})
         res.send(product)
     } catch (err) {
@@ -57,15 +79,21 @@ const updateJobs = async(req, res, next) => {
 }
 
 const removeJobs = async (req, res, next) => {
-    let job = await Jobs.findById(req.params.id);
-    if(job){
-        await Jobs.findByIdAndDelete(req.params.id);
-        return res.status(204).end();
-    } else {
-        res.status(404).send("Resource not found");
+    try {
+        let job = await Jobs.findById(req.params.id);
+        if(job){
+            job.images.forEach(img=>{
+                fs.unlinkSync(path.resolve("uploads",img));
+            })
+            await Jobs.findByIdAndDelete(req.params.id);
+            return res.status(204).end();
+        } else {
+            res.status(404).send("Resource not found");
+        }  
+    } catch (error) {
+        next(error);
     }
 }
-
 module.exports = {
     fetchJobs,
     storeJobs,

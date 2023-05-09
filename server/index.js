@@ -6,7 +6,7 @@ const app = express();
 const auth_route = require('./router/auth');
 const jobs_route = require('./router/jobs');
 const jobs_apply = require('./router/apply');
-// app.use(express.static('uploads'));
+app.use(express.static('uploads'));
 
 
 

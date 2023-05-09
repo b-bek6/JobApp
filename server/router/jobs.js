@@ -10,6 +10,7 @@ const JobsSchema = Joi.object({
     joblevel:Joi.string(),
     category:Joi.string(),
     no_of_vacancy:Joi.number(),
+    company_name:Joi.string(),
     location:Joi.string(),
     offered_salary:Joi.number(),
     deadline:Joi.date(),
@@ -27,7 +28,7 @@ const storage = multer.diskStorage({
       cb(null, "./uploads");
     },
     filename: function(req, file, cb) {
-      cb(null, `${Date.now()}-${file.originalname}`);
+      cb(null, `${file.fieldname}-${Date.now()}.png`);
     }
   });
   const upload = multer({ storage : storage });
@@ -35,7 +36,7 @@ const storage = multer.diskStorage({
 
 
 router.get("/", fetchJobs);
-router.post("/",validateSchema(JobsSchema),checkAuthentication, isEmployer, upload.array('image'), storeJobs);
+router.post("/",validateSchema(JobsSchema),checkAuthentication, isEmployer, upload.single('image'), storeJobs);
 router.put("/:id",checkAuthentication, isEmployer, updateJobs);
 router.delete("/:id",checkAuthentication, isEmployer, removeJobs);
 
