@@ -37,7 +37,7 @@ const storage = multer.diskStorage({
 
 router.get("/", fetchJobs);
 router.post("/",validateSchema(JobsSchema),checkAuthentication, isEmployer, upload.single('image'), storeJobs);
-router.put("/:id",checkAuthentication, isEmployer, updateJobs);
+router.put("/:id",checkAuthentication, isEmployer, upload.single('image'), updateJobs);
 router.delete("/:id",checkAuthentication, isEmployer, removeJobs);
 
 
