@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect('mongodb+srv://JobApp:jobapp@cluster0.dkoidso.mongodb.net/?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })

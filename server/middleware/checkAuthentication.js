@@ -7,7 +7,8 @@ const checkAuthentication = (req, res, next) => {
         // console.log(token);
         if(token){
             try {
-                var decoded_user_info = jwt.verify(token, process.env.JWT_SECRET);
+                // var decoded_user_info = jwt.verify(token, process.env.JWT_SECRET);
+                var decoded_user_info = jwt.verify(token, shhhhh);
                 req.user = decoded_user_info;
                 return next()
             } catch (error) {
