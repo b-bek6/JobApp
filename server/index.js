@@ -9,8 +9,6 @@ const jobs_apply = require('./router/apply');
 app.use(express.static('uploads'));
 
 
-
-
 // MIDDLEWARE
 app.use(express.json()); // req.body (change incomming req to the json format)
 
