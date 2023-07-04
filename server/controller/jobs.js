@@ -4,13 +4,6 @@ const User = require('../Model/User');
 const fs = require('fs');
 
 const fetchJobs = async (req, res) => {
-    try {
-        let users = await Jobs.find({});
-        res.send({data:users});
-    } catch (err) {
-        next(err);
-    }
-    return 
     let per_page = parseInt(req.query.per_page) || 5;
     let page = parseInt(req.query.page) || 1;
     let search_term = req.query.search_term || "";
