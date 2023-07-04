@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require("multer");
-require('./config/database');
 require('dotenv').config();
+require('./config/database');
 const app = express();
 const auth_route = require('./router/auth');
 const jobs_route = require('./router/jobs');

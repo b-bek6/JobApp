@@ -1,4 +1,8 @@
 const mongoose = require("mongoose");
 
-mongoose.connect('mongodb://localhost:27017/jobapp')
-  .then(() => console.log('Database Connected'));
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(() => console.log('Database Connected'))
+  .catch((error) => console.log('Database connection failed:', error));

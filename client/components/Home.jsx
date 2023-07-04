@@ -5,10 +5,10 @@ import Banner from '@/public/assets/images/banner.png'
 export default function Home() {
   return (
     <div className='bg-[#caeccc86] p-1'>
-        <div className='flex container m-2 flex-col md:flex-row justify-between align-middle gap-2'>
+        <div className='flex container m-2 flex-col md:flex-row md:justify-around justify-between align-middle gap-2'>
             
             <div className='flex justify-center flex-col gap-8 md:w-1/2 order-2 md:order-1'>
-                <div className='text-3xl font-extrabold' >
+                <div className='text-4xl md:text-6xl font-extrabold' >
                     Find A <span className='text-primary'>Job</span>  That <span className='text-primary'>Matches</span>  Your Passion 
                 </div>
                 <div className='font-Poppins'>
