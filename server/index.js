@@ -41,7 +41,7 @@ app.use("/api/jobs",jobs_route);
 app.use("/api/apply",jobs_apply);
 
 app.use((req,res)=>{
-    res.status(404).send({msg:"Resource Not Found"});
+    res.status(404).send({msg:"Resources Not Found"});
 })
 app.use((err, req, res, next) => {
     let status = 500;
