@@ -78,15 +78,15 @@ const updateJobs = async(req, res, next) => {
                 fs.unlinkSync(path.resolve("uploads",img));
             });
             try {
-                let product = await Jobs.findByIdAndUpdate(req.params.id, {...req.body, images: sent_image}, {runValidators:true, new: true})
-                res.send(product)
+                let Job = await Jobs.findByIdAndUpdate(req.params.id, {...req.body, images: sent_image}, {runValidators:true, new: true})
+                res.send(Job)
             } catch (err) {
                 next(err)
             }
         }else{
             try {
-                let product = await Jobs.findByIdAndUpdate(req.params.id, {...req.body}, {runValidators:true, new: true})
-                res.send(product)
+                let Job = await Jobs.findByIdAndUpdate(req.params.id, {...req.body}, {runValidators:true, new: true})
+                res.send(Job)
             } catch (err) {
                 next(err)
             }

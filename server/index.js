@@ -2,15 +2,16 @@ const express = require("express");
 const multer = require("multer");
 require('dotenv').config();
 require('./config/database');
+const cors = require('cors')
 const app = express();
 const auth_route = require('./router/auth');
 const jobs_route = require('./router/jobs');
 const jobs_apply = require('./router/apply');
 app.use(express.static('uploads'));
 
-
 // MIDDLEWARE
 app.use(express.json()); // req.body (change incomming req to the json format)
+app.use(cors);
 
 
 app.use((req, res, next) => {
