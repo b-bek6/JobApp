@@ -1,25 +1,32 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Job from './Job'
 import axios from 'axios';
 
 export default function Jobs({products}) {
   const [jobs, setJobs] = useState([])
+  useEffect(()=>{
     axios.get('http://localhost:8001/api/jobs').then(response => {
       console.log(response.data.data[0].jobs);
       setJobs(response.data.data[0].jobs);
   });
+  },[]);
   
   return (
     <div>
         <div className='bg-secondary p-6 text-2xl font-Poppins flex justify-center'>All Popular Listed Jobs</div>
-        <div className=' container gird justify-center align-middle '>
-        </div>
+        <div className=' container grid'>
+        
       {
-        jobs.map(job => (
-          <div>{job.name}</div>
+        jobs?.map(job => (
+          <Job job={job}/>
         ))
       }
+      </div>
+      <div className='flex justify-center'>
+        <button className='btn mb-3'> View More</button>
+      </div>
+      
     </div>
   )
 }
