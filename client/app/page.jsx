@@ -1,5 +1,5 @@
 import Home1 from "@/components/Home"
-import Jobs from "@components/Jobs"
+import Jobs from "@app/jobs/Jobs"
 import axios from "axios"
 
 

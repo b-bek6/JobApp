@@ -4,8 +4,11 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Spinner from '@components/Spinner'
+import { setReduxUser } from '../redux/slice/userSlice'
+import { useDispatch } from 'react-redux'
 
 export default function page() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [error, setError] = useState({})
   const [email, setEmail] = useState("")
@@ -33,20 +36,16 @@ export default function page() {
         "password":password
       })
       .then(res =>{
+        // console.log(res.data)
+        dispatch(setReduxUser(res.data.data))
         setIsSubmitting(false)
         router.push('/');
       })
       .catch(err=>{
+        console.log(err.response.data)
+        // setError({...error, error:err.response.data.err[0].message})
         setError({...error, error:"Invalid Credentials"})
         setIsSubmitting(false)
-        // console.log(err.response.data.err)
-        // let temp = {}
-        //   if (err.response.data.err && err.response.data.err?.length > 0) {
-        //     err.response.data.err.forEach(individual_error => {
-        //       temp[individual_error.params] = individual_error.message
-        //     })
-        //     setError(temp)
-        //   }
       })
     }
   }

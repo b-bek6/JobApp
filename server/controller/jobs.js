@@ -33,6 +33,17 @@ const fetchJobs = async (req, res) => {
     ])
     res.send({data:jobs})
 }
+const fetchSingleJobs = async(req, res, next ) =>{
+    console.log(req.params.id)
+    // try{
+        let job = await Jobs.findById(req.params.id);
+        res.send({job})
+    // }catch(err){
+    //     next(err)
+    // }
+    console.log(job)
+}
+
 const storeJobs = async (req, res, next) => {
     // console.log(req.files);
     // let images = []
@@ -111,6 +122,7 @@ const removeJobs = async (req, res, next) => {
 }
 module.exports = {
     fetchJobs,
+    fetchSingleJobs,
     storeJobs,
     updateJobs,
     removeJobs

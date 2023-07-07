@@ -1,5 +1,5 @@
 const express = require('express');
-const { fetchJobs, storeJobs, updateJobs, removeJobs } = require('../controller/jobs');
+const { fetchJobs, storeJobs, updateJobs, removeJobs, fetchSingleJobs } = require('../controller/jobs');
 const { checkAuthentication, isEmployer } = require('../middleware/checkAuthentication');
 const Joi = require('joi');
 const validateSchema = require('../middleware/validateSchema');
@@ -36,6 +36,7 @@ const storage = multer.diskStorage({
 
 
 router.get("/", fetchJobs);
+router.get("/:id", fetchSingleJobs);
 router.post("/",validateSchema(JobsSchema),checkAuthentication, isEmployer, upload.single('image'), storeJobs);
 router.put("/:id",checkAuthentication, isEmployer, upload.single('image'), updateJobs);
 router.delete("/:id",checkAuthentication, isEmployer, removeJobs);

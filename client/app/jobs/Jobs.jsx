@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react';
-import Job from './Job'
+import Job from '../../components/Job'
 import axios from 'axios';
 
 export default function Jobs({products}) {
