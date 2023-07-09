@@ -1,8 +1,5 @@
+import Link from 'next/link'
 import React, { useState } from 'react'
-import Image from 'next/image'
-import Banner from '@/public/assets/images/banner.png'
-import axios from 'axios'
-
 
 export default function Job({job}) {
   return (
@@ -21,7 +18,9 @@ export default function Job({job}) {
                 </div>
             </div>
             <div className='flex items-center'>
-                <button className='btn  md:h-1/2'> View Details</button>
+              <Link href={`/jobs/${job._id}`}>
+                  <button className='btn  md:h-1/2'> View Details </button>
+              </Link>
             </div>
       </div>
     </div>

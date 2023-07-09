@@ -25,8 +25,11 @@ const login = async (req, res, next) => {
     }
     return res.status(401).send({msg:"Invalid Email or Password"})
 }
-
+const getUser = async (req, res, next) => {
+    res.send(req.user);
+}
 module.exports = {
     signup,
-    login
+    login,
+    getUser
 }

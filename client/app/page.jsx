@@ -1,7 +1,5 @@
 import Home1 from "@/components/Home"
-import Jobs from "@app/jobs/Jobs"
-import axios from "axios"
-
+import Jobs from "@components/Jobs"
 
 export default function Home({user}) {
   return (

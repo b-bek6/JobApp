@@ -5,6 +5,7 @@ module.exports.SENIOR = 'senior';
 
 module.exports.FRONTEND = 'frontend';
 module.exports.BACKEND = 'backend';
+module.exports.FULLSTACK = 'fullstack';
 
 
 module.exports.TOP="top"

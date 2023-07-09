@@ -1,11 +1,14 @@
 'use client'
 import { logout } from '@app/redux/slice/userSlice'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import Router from 'router'
 
 
 export default function Navbar() {
+  const router = useRouter;
   let redux_user = useSelector((store) => { return store.user?.value })
   console.log(redux_user)
   let dispatch = useDispatch();
@@ -31,7 +34,20 @@ export default function Navbar() {
               {
                 redux_user?.role == 'employer'
                 &&
-                <button className='border rounded-lg font-bolt bg-primary text-white p-1.5'>Post a Job</button>
+                <button className='border rounded-lg font-bolt bg-primary text-white p-1.5'>
+                  <Link href={'employer/jobs/create'}>
+                     Post a Job
+                  </Link>
+                </button>
+              }
+              {
+                redux_user?.role == 'jobseeker'
+                &&
+                <button className='border rounded-lg font-bolt bg-primary text-white p-1.5'>
+                  <Link href={'joseeker/apply/'}>
+                     Applied Jobs
+                  </Link>
+                </button>
               }
           </div>
         </div> 

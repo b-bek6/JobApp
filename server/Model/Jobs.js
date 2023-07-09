@@ -1,5 +1,5 @@
 const mongoose = require ("mongoose");
-const { FRESHER, JUNIOR, MID, SENIOR, FRONTEND, BACKEND, TOP, HOT, FEATURED, NORMAL } = require("../constants/job-constants");
+const { FRESHER, JUNIOR, MID, SENIOR, FRONTEND, FULLSTACK, BACKEND, TOP, HOT, FEATURED, NORMAL } = require("../constants/job-constants");
 
 const Schema = mongoose.Schema;
 const ObjectId = Schema.objectId;
@@ -20,7 +20,7 @@ const JobSchema = new Schema({
     },
     category:{
         type: String,
-        enum: [FRONTEND, BACKEND],
+        enum: [FRONTEND, BACKEND, FULLSTACK],
         set: function (value){
             return value.toLowerCase();
         }
@@ -59,9 +59,9 @@ const JobSchema = new Schema({
     description: {
         type: String
     },
-    images:{
-        type:[String]
-    },
+    // images:{
+    //     type:[String]
+    // },
     created_by: {
         type:Schema.ObjectId,
         required: true,

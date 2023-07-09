@@ -1,13 +1,14 @@
 'use client'
 import { useEffect, useState } from 'react';
-import Job from '../../components/Job'
+import Job from '@components/Job';
 import axios from 'axios';
+import Link from 'next/link';
 
-export default function Jobs({products}) {
+
+export default function page() {
   const [jobs, setJobs] = useState([])
   useEffect(()=>{
     axios.get('http://localhost:8001/api/jobs').then(response => {
-      console.log(response.data.data[0].jobs);
       setJobs(response.data.data[0].jobs);
   });
   },[]);
@@ -18,25 +19,17 @@ export default function Jobs({products}) {
         <div className=' container grid'>
         
       {
-        jobs?.map(job => (
-          <Job job={job}/>
-        ))
+        jobs?.map(job => {
+          return <>
+            <Job job={job}/>
+          </>
+        })
       }
       </div>
       <div className='flex justify-center'>
-        <button className='btn mb-3'> View More</button>
+        <button className='btn mb-3'> <Link href={'/jobs'}>View More</Link> </button>
       </div>
       
     </div>
   )
 }
-
-// export async function getServerSideProps() {
-//   let res = await axios.get("https://ecommerce-sagartmg2.vercel.app/api/products?per_page=6")
-
-//   return {
-//     props: {
-//       products: res.data.data[0].data
-//     },
-//   }
-// }

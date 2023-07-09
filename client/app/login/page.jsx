@@ -39,6 +39,7 @@ export default function page() {
         // console.log(res.data)
         dispatch(setReduxUser(res.data.data))
         setIsSubmitting(false)
+        localStorage.setItem("token",res.data.token)
         router.push('/');
       })
       .catch(err=>{
