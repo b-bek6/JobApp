@@ -1,13 +1,12 @@
 
 'use client'
-import ProtectedPage from '@components/ProtectedPage'
 import Spinner from '@components/Spinner'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
+import AvoidEmployer from '@components/AvoidEmployer'
 
-
-export function SingleProduct(ctx) {
+export default function SingleProduct(ctx) {
     let redux_user = useSelector((store)=> store.user.value )
     const [applied, setApplied] = useState(false)
     const [job, setJob] = useState({})
@@ -62,7 +61,7 @@ export function SingleProduct(ctx) {
         }
         <div className='container'>
             <div className='m-3 flex justify-center gap-4'>
-                <button className='btn bg-secondary text-black'>View Company</button>
+                <button className='btn bg-secondary text-black'>Delete Job</button>
                 {
                     redux_user?.role == 'employer'
                     ?
@@ -112,5 +111,3 @@ export function SingleProduct(ctx) {
     </div>
   )
 }
-
-export default ProtectedPage(SingleProduct,'jobseeker')

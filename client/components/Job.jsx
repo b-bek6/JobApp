@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 export default function Job({job}) {
+  const redux_user = useSelector(store=> store.user.value)
   return (
     <div className='container border m-3'>
         <div className='flex flex-col align-middle items-center justify-center md:flex-row gap-2 md:gap-10 m-3'>
@@ -18,9 +20,18 @@ export default function Job({job}) {
                 </div>
             </div>
             <div className='flex items-center'>
-              <Link href={`/jobs/${job._id}`}>
-                  <button className='btn  md:h-1/2'> View Details </button>
-              </Link>
+              {
+                redux_user?.role == 'employer'
+                ?
+                <Link href={`/employer/jobs/${job._id}`}>
+                    <button className='btn  md:h-1/2'> View Details </button>
+                </Link>
+                :
+                <Link href={`/jobs/${job._id}`}>
+                    <button className='btn  md:h-1/2'> View Details </button>
+                </Link>
+
+              }
             </div>
       </div>
     </div>
