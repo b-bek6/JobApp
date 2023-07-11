@@ -12,14 +12,24 @@ export default function page(ctx) {
   const [jobs, setJobs] = useState([])
   let get
   useEffect(()=>{
-    axios.get(`http://localhost:8001/api/jobs?search_term=${ctx?.searchParams?.search_term}`).then(response => {
+    axios.get(`https://job-app-ten-mu.vercel.app/api/jobs`).then(response => {
       setJobs(response.data.data[0].jobs);
   });
   },[]);
 
-    function handleSearch (e) {
+    const  handleSearch =  async (e) =>{
       e.preventDefault()
       router.push(`/jobs?search_term=${e.target.search_term.value}`)
+        axios.get(`https://job-app-ten-mu.vercel.app/api/jobs?search_term=${e.target.search_term.value}`).then(response => {
+          setJobs(response.data.data[0].jobs);
+      });
+    }
+    const  handlePerPage =  async (e) =>{
+      e.preventDefault()
+      router.push(`/jobs?per_page=${e.target.value}`)
+        axios.get(`https://job-app-ten-mu.vercel.app/api/jobs?per_page=${e.target.value}`).then(response => {
+          setJobs(response.data.data[0].jobs);
+      });
     }
   
   return (
@@ -28,7 +38,7 @@ export default function page(ctx) {
         <div className='border bg-secondary p-6 flex justify-around'>
         <div className='flex gap-2'>
                     <label htmlFor="type" className='text-lg  text-light-primary'>Per Page</label>
-                    <select  className=' border-2 rounded-md text-light-primary'name='type'>
+                    <select type='select' onChange={handlePerPage} className=' border-2 rounded-md text-light-primary'name='perpage'>
                       <option selected value="5">5</option>
                       <option value="10">10</option>
                       <option value="15">15</option>
@@ -58,7 +68,3 @@ export default function page(ctx) {
     </div>
   )
 }
-
-// export async function getServerSideProps(ctx){
-//   let res = await axios.get('http://localhost:8001/api/jobs')
-// }

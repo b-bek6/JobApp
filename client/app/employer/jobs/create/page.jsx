@@ -42,7 +42,7 @@ export function page({job}) {
     console.log(job)
     function handleSubmit(e){
         e.preventDefault();
-        axios.post("http://localhost:8001/api/jobs",{
+        axios.post("https://job-app-ten-mu.vercel.app/api/jobs",{
             "name" : data.name,
             "joblevel": data.joblevel,
             "category": data.category,

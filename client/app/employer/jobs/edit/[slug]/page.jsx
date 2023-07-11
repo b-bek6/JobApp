@@ -23,7 +23,7 @@ export default function page(ctx) {
 
     })
     useEffect(()=>{
-      axios.get(`http://localhost:8001/api/jobs/${ctx.params?.slug}`)
+      axios.get(`https://job-app-ten-mu.vercel.app/api/jobs/${ctx.params?.slug}`)
       .then(res => {
           setData(res.data.job)
           setSpinner(false);
@@ -37,7 +37,7 @@ export default function page(ctx) {
 
     function handleSubmit(e){
         e.preventDefault();
-        axios.put(`http://localhost:8001/api/jobs/${ctx.params?.slug}`,{
+        axios.put(`https://job-app-ten-mu.vercel.app/api/jobs/${ctx.params?.slug}`,{
             "name" : data.name,
             "joblevel": data.joblevel,
             "category": data.category,
@@ -278,6 +278,7 @@ export default function page(ctx) {
     </div>
   )
 }
+
 
 
 // export default ProtectedPage(page,'employer');

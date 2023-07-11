@@ -16,7 +16,7 @@ export default function SingleProduct() {
     const [remove, setRemove] = useState(false)
     
     useEffect(()=>{
-        axios.get(`http://localhost:8001/api/jobs/${slug}`)
+        axios.get(`https://job-app-ten-mu.vercel.app/api/jobs/${slug}`)
         .then(res => {
             setJob(res.data.job)
             setSpinner(false);
@@ -28,7 +28,7 @@ export default function SingleProduct() {
         
     },[])
     function handleDelete () {
-        axios.delete(`http://localhost:8001/api/jobs/${slug}`,{
+        axios.delete(`https://job-app-ten-mu.vercel.app/api/jobs/${slug}`,{
           headers : {
             Authorization: "Bearer " + localStorage.getItem("token")
           }
