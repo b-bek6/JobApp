@@ -2,9 +2,8 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import {AiOutlineDelete, AiFillEdit, AiOutlineEye} from 'react-icons/ai'
-
+import Link from 'next/link'
 export default function AppliedTable({id}) {
-    // console.log(id)
     const [job, setJob] = useState({})
     const [remove, setRemove] = useState(false)
     useEffect(()=>{
@@ -39,11 +38,13 @@ export default function AppliedTable({id}) {
       :
         <tr>
               <td  className='border'> {job?.name}</td>
-              <td  className='border'>{job.category}</td>
-              <td className='border'>{job.created_at?.substring(0, 10)}</td>
-              <td  className='border'>{job.deadline?.substring(0, 10)}</td>
+              <td  className='border'>{job?.category}</td>
+              <td className='border'>{job?.created_at?.substring(0, 10)}</td>
+              <td  className='border'>{job?.deadline?.substring(0, 10)}</td>
               <td className=' border-t flex gap-6 align-middle justify-center'> 
+              <Link href={`/jobs/${id}`}>
                 <div className='text-green-800'><AiOutlineEye/></div>
+              </Link>
                 <div className='text-sky-400'><AiFillEdit/></div>
                 <div onClick={() => {
                   removeApply(id)

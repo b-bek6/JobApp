@@ -5,16 +5,19 @@ import Spinner from '@components/Spinner'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
-
+import JobDetails from '@components/JobDetails'
+import { useParams } from 'next/navigation'
 
 export function SingleProduct(ctx) {
+    const { slug }  = useParams();
+    console.log(slug)
     let redux_user = useSelector((store)=> store.user.value )
     const [applied, setApplied] = useState(false)
     const [job, setJob] = useState({})
     const [spinner, setSpinner] = useState(true)
     
     useEffect(()=>{
-        axios.get(`http://localhost:8001/api/jobs/${ctx.params?.slug}`)
+        axios.get(`http://localhost:8001/api/jobs/${slug}`)
         .then(res => {
             setJob(res.data.job)
             setSpinner(false);
@@ -23,7 +26,6 @@ export function SingleProduct(ctx) {
             console.log(err)
             setSpinner(false)
         })
-        
     },[])
     const arr = Object.entries(job);
     console.log(ctx.params?.slug)
@@ -80,32 +82,7 @@ export function SingleProduct(ctx) {
                     < Spinner />
                 </div>
                 :
-                <div className='m-3'>
-                    <div>
-                        <span className='font-bold font-Poppins text-md'> Name </span> : <span className='font-Poppins text-1xl'>{job.name}</span> 
-                    </div>
-                    <div>
-                        <span className='font-bold font-Poppins text-md'> Job Level </span> : <span className='font-Poppins text-1xl'>{job.joblevel}</span> 
-                    </div>
-                    <div>
-                        <span className='font-bold font-Poppins text-md'> No of Vacancy </span> : <span className='font-Poppins text-1xl'>{job.no_of_vacancy}</span> 
-                    </div>
-                    <div>
-                        <span className='font-bold font-Poppins text-md'> Company Name </span> : <span className='font-Poppins text-1xl'>{job.company_name}</span> 
-                    </div>
-                    <div>
-                        <span className='font-bold font-Poppins text-md'> Location </span> : <span className='font-Poppins text-1xl'>{job.location}</span> 
-                    </div>
-                    <div>
-                        <span className='font-bold font-Poppins text-md'> Offered Salary </span> : <span className='font-Poppins text-1xl'>{job.offered_salary}</span> 
-                    </div>
-                    <div>
-                        <div className=' mt-3 mb-3 font-bold font-Poppins text-xl'>
-                            Job Description
-                        </div>
-                        <p>{job.description}</p>
-                    </div>
-                </div>
+                <JobDetails job={job}/>
 
             }
         </div>

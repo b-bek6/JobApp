@@ -25,19 +25,31 @@ const applyJob = async (req, res, next) => {
 }
 const getAppliedJobs = async (req, res, next ) => {
     try {
-        // let applied_jobs = Apply.find(Apply.jobseeker_id = req.user.id);
-        // console.log(req.user.id)
         let applied_jobs = await Apply.find({jobseeker_id : req.user._id})
-        // console.log(applied_jobs)
         res.send(applied_jobs)
-        // res.send(req.user._id)
 
     } catch (error) {
         next(error)
     }
 }
-
+const deleteAppliedJobs = async (req, res, next) => {
+    try {
+        console.log(req.params.id)
+        let apply = await Apply.findOne({ 'applied_jobs.job_id' : req.params.id});
+        console.log(apply);
+        if(apply){
+            await Apply.findByIdAndDelete(apply._id);
+            return res.status(204).end();
+        } else {
+            res.status(404).send("Resource not found");
+        } 
+        res.send({apply})
+    } catch (error) {
+        next(error);
+    }
+}
 module.exports = {
     applyJob,
-    getAppliedJobs
+    getAppliedJobs,
+    deleteAppliedJobs
 }

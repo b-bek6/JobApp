@@ -2,30 +2,13 @@
 import ProtectedPage from '@components/ProtectedPage';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-/* 
-{"job":{"_id":"64a429c72a9c4b40e561c421",
-"name":"Software dev",
-"joblevel":"senior",
-"category":"backend",
-"no_of_vacancy":2,
-"company_name":"Technonogy",
-"location":"New York 4300, USA",
-"offered_salary":500000,
-"deadline":"2023-05-01T00:00:00.000Z",
-"type":"featured",
-"description":"We are seeking for a software engineer for our company. Applicant must have 5 years of experience in required field.",
-"images":["image-1688480199499.png"],
-"created_by":"6455e9a76fac939adcccb178",
-"created_at":"2023-07-04T14:16:39.504Z",
-"__v":0}}
-
-*/
-
-export function page({job}) {
+export default function page(ctx) {
     const [submitted, setSubmitted] = useState(false)
     const [error, setError] = useState(false)
+    const [spinner, setSpinner] = useState(true)
+  
     const [data, setData] = useState({
         name:"",
         joblevel:"",
@@ -39,10 +22,22 @@ export function page({job}) {
         description:""
 
     })
-    console.log(job)
+    useEffect(()=>{
+      axios.get(`http://localhost:8001/api/jobs/${ctx.params?.slug}`)
+      .then(res => {
+          setData(res.data.job)
+          setSpinner(false);
+      })
+      .catch (err => {
+          console.log(err)
+          setSpinner(false)
+      })
+      
+    },[])
+
     function handleSubmit(e){
         e.preventDefault();
-        axios.post("http://localhost:8001/api/jobs",{
+        axios.put(`http://localhost:8001/api/jobs/${ctx.params?.slug}`,{
             "name" : data.name,
             "joblevel": data.joblevel,
             "category": data.category,
@@ -84,11 +79,11 @@ export function page({job}) {
 
   return (
     <div>
-        <div className='bg-secondary p-6 text-2xl font-Poppins flex justify-center'>Create A Job</div>
+        <div className='bg-secondary p-6 text-2xl font-Poppins flex justify-center'>Edit A Job</div>
         {
             submitted 
             &&
-            <div className='bg-green-300 p-6 text-2xl font-Poppins flex justify-center'>Job Has Been Posted</div>
+            <div className='bg-green-300 p-6 text-2xl font-Poppins flex justify-center'>Job Has Been Modified</div>
         }
         {
             error 
@@ -276,7 +271,7 @@ export function page({job}) {
                   </div>
                   <div className='align-middle justify-end flex'>
                     <button type='submit' className='btn w-3/2 pl-4 pr-4 mb-8'>
-                        Post a Job
+                        Edit a Job
                     </button>
                   </div>
               </form>
@@ -285,4 +280,4 @@ export function page({job}) {
 }
 
 
-export default ProtectedPage(page,'employer');
+// export default ProtectedPage(page,'employer');

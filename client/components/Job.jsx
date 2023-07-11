@@ -23,7 +23,7 @@ export default function Job({job}) {
               {
                 redux_user?.role == 'employer'
                 ?
-                <Link href={`/employer/jobs/${job._id}`}>
+                <Link href={`/employer/jobs/details/${job._id}`}>
                     <button className='btn  md:h-1/2'> View Details </button>
                 </Link>
                 :
