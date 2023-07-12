@@ -11,10 +11,16 @@ app.use(express.static('uploads'));
 
 // MIDDLEWARE
 app.use(express.json()); // req.body (change incomming req to the json format)
-app.use(cors({
-    origin: "*"
-}));
+// app.use(cors({
+//     origin: "*"
+// }));
 
+const corsOptions ={
+    origin:'http://localhost:3000', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
 
 app.use((req, res, next) => {
 
