@@ -7,7 +7,7 @@ export default function AppliedTable({id}) {
     const [job, setJob] = useState({})
     const [remove, setRemove] = useState(false)
     useEffect(()=>{
-        axios.get(`https://job-app-ten-mu.vercel.app/api/jobs/${id}`)
+        axios.get(`https://job-1c3nlgegi-b-bek6.vercel.app/api/jobs/${id}`)
         .then(res => {
             setJob(res.data.job)
             console.log(res.data)
@@ -19,7 +19,7 @@ export default function AppliedTable({id}) {
       },[])
       function removeApply (id) {
         // console.log(id)
-        axios.delete(`https://job-app-ten-mu.vercel.app/api/apply/${id}`,{
+        axios.delete(`https://job-1c3nlgegi-b-bek6.vercel.app/api/apply/${id}`,{
           headers : {
             Authorization: "Bearer " + localStorage.getItem("token")
           }

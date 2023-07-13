@@ -30,7 +30,7 @@ export default function page() {
     }
     setErrors(temp)
     if(validation){
-      axios.post(`https://job-app-ten-mu.vercel.app/api/signup`,{
+      axios.post(`https://job-1c3nlgegi-b-bek6.vercel.app/api/signup`,{
       "name": name,
       "role": event.target.role.value,
       "password": event.target.password.value,

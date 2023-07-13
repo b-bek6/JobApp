@@ -17,7 +17,7 @@ export function SingleProduct(ctx) {
     const [spinner, setSpinner] = useState(true)
     
     useEffect(()=>{
-        axios.get(`https://job-app-ten-mu.vercel.app/api/jobs/${slug}`)
+        axios.get(`https://job-1c3nlgegi-b-bek6.vercel.app/api/jobs/${slug}`)
         .then(res => {
             setJob(res.data.job)
             setSpinner(false);
@@ -31,7 +31,7 @@ export function SingleProduct(ctx) {
     console.log(ctx.params?.slug)
     function applyJobs () {
         console.log(job._id)
-        axios.post('https://job-app-ten-mu.vercel.app/api/apply',{
+        axios.post('https://job-1c3nlgegi-b-bek6.vercel.app/api/apply',{
 
                 "applied_jobs":[
                   {

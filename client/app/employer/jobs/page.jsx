@@ -8,7 +8,7 @@ import axios from 'axios'
 export function page() {
   const [jobs, setJobs] = useState([])
   useEffect(()=>{
-    axios.get('https://job-app-ten-mu.vercel.app/api/jobs/employer',{
+    axios.get('https://job-1c3nlgegi-b-bek6.vercel.app/api/jobs/employer',{
       headers : {
         Authorization: "Bearer " + localStorage.getItem("token")
       }
