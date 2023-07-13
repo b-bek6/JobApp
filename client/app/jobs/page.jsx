@@ -35,7 +35,7 @@ export default function page(ctx) {
   return (
     <div>
         <div className='bg-secondary p-6 text-2xl font-Poppins flex justify-center'>All Popular Listed Jobs</div>
-        <div className='border bg-secondary p-6 flex justify-around'>
+        <div className='border gap-4 bg-secondary p-6 flex flex-col md:flex-row align-middle justify-center items-center md:justify-around'>
         <div className='flex gap-2'>
                     <label htmlFor="type" className='text-lg  text-light-primary'>Per Page</label>
                     <select type='select' onChange={handlePerPage} className=' border-2 rounded-md text-light-primary'name='perpage'>
