@@ -8,12 +8,5 @@
         "src": "/(.*)",
         "dest": "/"
       }
-    ],
-    "timeout":[{
-        "functions": {
-          "api/**/*.js": {
-            "timeout": 30
-          }
-        }
-    }]
+    ]
     }
