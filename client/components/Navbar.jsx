@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Router from 'router'
-import { AiOutlineMenu } from 'react-icons/ai'
+import { AiOutlineUser } from 'react-icons/ai'
 
 export default function Navbar() {
   const [show, setShow ] = useState(false)
@@ -54,8 +54,8 @@ export default function Navbar() {
           </div>
           <div onClick={()=>{
             setShow(!show);
-          }} className='text-3xl md:hidden'>
-          <AiOutlineMenu/>
+          }} className='text-3xl md:hidden transition '>
+          <AiOutlineUser/>
           </div>
         </div> 
             {

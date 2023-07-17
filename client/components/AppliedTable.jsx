@@ -3,11 +3,12 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import {AiOutlineDelete, AiFillEdit, AiOutlineEye} from 'react-icons/ai'
 import Link from 'next/link'
+
 export default function AppliedTable({id}) {
     const [job, setJob] = useState({})
     const [remove, setRemove] = useState(false)
     useEffect(()=>{
-        axios.get(`https://job-1c3nlgegi-b-bek6.vercel.app/api/jobs/${id}`)
+        axios.get(`http://localhost:8001/api/jobs/${id}`)
         .then(res => {
             setJob(res.data.job)
             console.log(res.data)
@@ -19,7 +20,7 @@ export default function AppliedTable({id}) {
       },[])
       function removeApply (id) {
         // console.log(id)
-        axios.delete(`https://job-1c3nlgegi-b-bek6.vercel.app/api/apply/${id}`,{
+        axios.delete(`http://localhost:8001/api/apply/${id}`,{
           headers : {
             Authorization: "Bearer " + localStorage.getItem("token")
           }

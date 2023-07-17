@@ -25,6 +25,10 @@ const JobSchema = new Schema({
             return value.toLowerCase();
         }
     },
+    company_website:{
+        type: String,
+        maxlength: 255,
+    },
     no_of_vacancy:{
         type: Number,
         required: true,
@@ -59,9 +63,9 @@ const JobSchema = new Schema({
     description: {
         type: String
     },
-    // images:{
-    //     type:[String]
-    // },
+    images:{
+        type:[String]
+    },
     created_by: {
         type:Schema.ObjectId,
         required: true,

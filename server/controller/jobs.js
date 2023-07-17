@@ -2,6 +2,7 @@ const path = require('path');
 const Jobs = require('../Model/Jobs');
 const User = require('../Model/User');
 const fs = require('fs');
+const Apply = require('../Model/Apply');
 
 const fetchJobs = async (req, res) => {
     let per_page = parseInt(req.query.per_page) || 5;
@@ -54,16 +55,9 @@ const fetchEmployerJobs = async(req, res, next ) => {
     }
 }
 const storeJobs = async (req, res, next) => {
-    // console.log(req.files);
-    // let images = []
-    // for (let index = 0; index < req.files.length; index++) {
-    //     images.push(req.files[index].filename);
-    // }
-    // console.log(req.file);
-    // let image = req.file.filename;
+    let image = req.file.filename;
     try {
-        // let job = await Jobs.create({...req.body, images:image, created_by:req.user._id});
-        let job = await Jobs.create({...req.body, created_by:req.user._id});
+        let job = await Jobs.create({...req.body, images:image, created_by:req.user._id});
         res.send(job);
     } catch (err) {
         res.send(err);
@@ -72,47 +66,27 @@ const storeJobs = async (req, res, next) => {
 
 
 const updateJobs = async(req, res, next) => {
-    // console.log(req.file.image);
-    // console.log(req.params.id);
-    // let old_image = job_data.images
-    // let image = [];
-    // if(sent_image){
-    //     image = req.file.filename;
-    //     old_image.forEach(img => {
-    //         fs.unlinkSync(path.resolve("uploads",img))
-    //     });
-    // }
-    // old_image.forEach(img => {
-    //     if(sent_images?.includes(img)){
-    //         images.push(img);
-    //     } else {
-    //         fs.unlinkSync(path.resolve("uploads",img))
-    //     }
-    // })
-
-    
-    // let sent_image = req.file?.filename;
+    let sent_image = req.file?.filename;
     let job_data = await Jobs.findById(req.params.id);
-    // let old_image = job_data?.images
-        // if(sent_image){
-        //     old_image?.forEach(img => {
-        //         fs.unlinkSync(path.resolve("uploads",img));
-        //     });
+    let old_image = job_data?.images
+        if(sent_image){
+            old_image?.forEach(img => {
+                fs.unlinkSync(path.resolve("uploads",img));
+            });
             try {
-                let Job = await Jobs.findByIdAndUpdate(req.params.id, {...req.body} , {runValidators:true, new: true})
-                // let Job = await Jobs.findByIdAndUpdate(req.params.id, {...req.body, images: sent_image}, {runValidators:true, new: true})
+                let Job = await Jobs.findByIdAndUpdate(req.params.id, {...req.body, images: sent_image}, {runValidators:true, new: true})
                 res.send(Job)
             } catch (err) {
                 next(err)
             }
-    //     }else{
-    //         try {
-    //             let Job = await Jobs.findByIdAndUpdate(req.params.id, {...req.body}, {runValidators:true, new: true})
-    //             res.send(Job)
-    //         } catch (err) {
-    //             next(err)
-    //         }
-    // }
+        }else{
+            try {
+                let Job = await Jobs.findByIdAndUpdate(req.params.id, {...req.body}, {runValidators:true, new: true})
+                res.send(Job)
+            } catch (err) {
+                next(err)
+            }
+    }
 }
 
 const removeJobs = async (req, res, next) => {
@@ -120,9 +94,9 @@ const removeJobs = async (req, res, next) => {
         let job = await Jobs.findById(req.params.id);
         if(job){
             await Jobs.findByIdAndDelete(req.params.id);
-            // job.images?.forEach(img=>{
-            //     fs.unlinkSync(path.resolve("uploads",img));
-            // })
+            job.images?.forEach(img=>{
+                fs.unlinkSync(path.resolve("uploads",img));
+            })
             return res.status(204).end();
         } else {
             res.status(404).send("Resource not found");
@@ -131,11 +105,51 @@ const removeJobs = async (req, res, next) => {
         next(error);
     }
 }
+
+// const applicant = async (req, res, next) => {
+//     try {
+//         // console.log(req.params.id)
+//         let applied_job = await Apply.find({
+//             "applied_jobs.job_id": req.params.id
+//           })
+//           let applicant = []
+//         applied_job.forEach(async (applied,i) => {
+//             let id = applied.jobseeker_id.toString();
+//             applicant[i] = await User.findById({id})
+//             // console.log(applicant[0]);
+//             console.log(id)
+//             console.log(i)
+            
+//         })
+//         // console.log(applied_job[0].jobseeker_id);
+//         res.send(applicant);
+//         // res.send(applied_job[0].jobseeker_id.toString());
+//     } catch (error) {
+//         next(error)
+//     }
+// }
+const applicant = async (req, res, next) => {
+    try {
+      let applied_job = await Apply.find({
+        "applied_jobs.job_id": req.params.id
+      });
+      let applicantPromises = applied_job.map(async (applied) => {
+        let id = applied.jobseeker_id.toString();
+        return await User.findById(id);
+      });
+      let applicants = await Promise.all(applicantPromises);
+      res.send(applicants);
+    } catch (error) {
+      next(error);
+    }
+  };
+
 module.exports = {
     fetchJobs,
     fetchSingleJobs,
     fetchEmployerJobs,
     storeJobs,
     updateJobs,
-    removeJobs
+    removeJobs,
+    applicant
 }

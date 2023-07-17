@@ -48,12 +48,8 @@ const deleteAppliedJobs = async (req, res, next) => {
         next(error);
     }
 }
-const applicant = async (req, res, next) =>{
-    
-}
 module.exports = {
     applyJob,
     getAppliedJobs,
-    deleteAppliedJobs,
-    applicant
+    deleteAppliedJobs
 }

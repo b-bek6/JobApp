@@ -31,7 +31,7 @@ export default function page() {
     setError(temp)
     if(validation){
       setIsSubmitting(true)
-      axios.post("https://job-1c3nlgegi-b-bek6.vercel.app/api/login",{
+      axios.post("http://localhost:8001/api/login",{
         "email":email,
         "password":password
       })

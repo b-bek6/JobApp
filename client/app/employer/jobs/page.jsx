@@ -8,7 +8,7 @@ import axios from 'axios'
 export function page() {
   const [jobs, setJobs] = useState([])
   useEffect(()=>{
-    axios.get('https://job-1c3nlgegi-b-bek6.vercel.app/api/jobs/employer',{
+    axios.get('http://localhost:8001/api/jobs/employer',{
       headers : {
         Authorization: "Bearer " + localStorage.getItem("token")
       }
@@ -30,7 +30,7 @@ export function page() {
       }
       </div>
       <div className='flex justify-center'>
-        <button className='btn mb-3'> <Link href={'/jobs'}>View More</Link> </button>
+        <button className='btn mb-3'> <Link href={'/employer/jobs'}>View More</Link> </button>
       </div>
       
     </div>
