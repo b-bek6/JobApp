@@ -8,7 +8,7 @@ import Link from 'next/link';
 export default function EmployerJobs() {
   const [jobs, setJobs] = useState([])
   useEffect(()=>{
-    axios.get('http://localhost:8001/api/jobs/employer',{
+    axios.get('https://job-app-ashy-theta.vercel.app/api/jobs/employer',{
       headers : {
         Authorization: "Bearer " + localStorage.getItem("token")
       }

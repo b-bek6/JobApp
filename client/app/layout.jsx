@@ -13,7 +13,7 @@ export function Layout({children}) {
   const dispatch = useDispatch()
   useEffect(() => {
     if (localStorage.getItem("token")) {
-        axios.get("http://localhost:8001/api/user",{
+        axios.get("https://job-app-ashy-theta.vercel.app/api/user",{
         headers:{
           Authorization : "Bearer " + localStorage.getItem("token") 
         }

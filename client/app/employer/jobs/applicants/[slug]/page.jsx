@@ -12,7 +12,7 @@ export default function page({id}) {
     const [application, setApplications] = useState([])
 
     useEffect(()=>{
-        axios.get(`http://localhost:8001/api/jobs/employer/${slug}`,{
+        axios.get(`https://job-app-ashy-theta.vercel.app/api/jobs/employer/${slug}`,{
           headers: {
             Authorization : "Bearer " +localStorage.getItem("token")
 

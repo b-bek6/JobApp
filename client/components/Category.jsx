@@ -8,7 +8,7 @@ import axios from 'axios';
 export default function Category() {
   const [jobs, setJobs] = useState([])
   useEffect(()=>{
-    axios.get('http://localhost:8001/api/jobs?per_page=3').then(response => {
+    axios.get('https://job-app-ashy-theta.vercel.app/api/jobs?per_page=3').then(response => {
       console.log(response.data.data[0].jobs);
       setJobs(response.data.data[0].jobs);
   });
