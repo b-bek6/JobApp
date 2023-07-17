@@ -29,6 +29,7 @@ export function page({job}) {
     const [data, setData] = useState({
         name:"",
         joblevel:"",
+        company_website:"",
         category:"",
         no_of_vacancy:"",
         company_name:"",
@@ -47,6 +48,7 @@ export function page({job}) {
         form_data.append("name",data.name)
         form_data.append("joblevel", data.joblevel)
         form_data.append("category", data.category)
+        form_data.append("company_website",data.company_website)
         form_data.append("no_of_vacancy", data.no_of_vacancy)
         form_data.append("company_name", data.company_name)
         form_data.append("location", data.location)
@@ -65,6 +67,7 @@ export function page({job}) {
             setData({
                 name:"",
                 joblevel:"",
+                company_website:"",
                 category:"",
                 no_of_vacancy:"",
                 company_name:"",
@@ -109,7 +112,7 @@ export function page({job}) {
                 <div
                     className='flex w-full flex-col gap-2'
                   >
-                    <label htmlFor="website" className='text-lg  text-light-primary'>Company Name</label>
+                    <label htmlFor="website" className='text-lg  text-light-primary'>Company Name <span className='text-red-500'>*</span></label>
                     <input
                       type="text"
                       name='company_name'
@@ -125,8 +128,10 @@ export function page({job}) {
                     <label htmlFor="website" className='text-lg  text-light-primary'>Company Website</label>
                     <input
                       type="text"
-                      name='website'
+                      name='company_website'
                       placeholder='Website Link'
+                      value={data.company_website}
+                      onChange={handleChange}
                       className='input'
                     />
                   </div>
@@ -136,7 +141,7 @@ export function page({job}) {
                 <div
                   className='flex w-full flex-col gap-2'
                 >
-                  <label htmlFor="title" className='text-lg  text-light-primary'>Job Title</label>
+                  <label htmlFor="title" className='text-lg  text-light-primary'>Job Title <span className='text-red-500'>*</span></label>
                   <input
                     type="text"
                     name='name'
@@ -151,7 +156,7 @@ export function page({job}) {
                 <div
                     className='flex w-full flex-col gap-2'
                   >
-                    <label htmlFor="website" className='text-lg  text-light-primary'>Job Category</label>
+                    <label htmlFor="website" className='text-lg  text-light-primary'>Job Category <span className='text-red-500'>*</span> </label>
                     <select className='input' name="category"
                             onChange={handleChange}
                             value={data.category}
@@ -167,7 +172,7 @@ export function page({job}) {
                   <div
                     className='flex w-full flex-col gap-2'
                   >
-                    <label htmlFor="website" className='text-lg  text-light-primary'>Job Type</label>
+                    <label htmlFor="website" className='text-lg  text-light-primary'>Job Type <span className='text-red-500'>*</span> </label>
                     <select className='input' name="type"
                             onChange={handleChange}
                             value={data.type}
@@ -186,7 +191,7 @@ export function page({job}) {
                 <div
                     className='flex w-full flex-col gap-2'
                   >
-                    <label htmlFor="website" className='text-lg  text-light-primary'>Job Location</label>
+                    <label htmlFor="website" className='text-lg  text-light-primary'>Job Location <span className='text-red-500'>*</span> </label>
                     <input
                       type="location"
                       name='location'
@@ -199,7 +204,7 @@ export function page({job}) {
                   <div
                     className='flex w-full flex-col gap-2'
                   >
-                    <label htmlFor="website" className='text-lg  text-light-primary'>Offered Salary</label>
+                    <label htmlFor="website" className='text-lg  text-light-primary'>Offered Salary <span className='text-red-500'>*</span> </label>
                     <input
                       type="number"
                       name='offered_salary'
@@ -214,7 +219,7 @@ export function page({job}) {
                 <div
                     className='flex w-full flex-col gap-2'
                   >
-                    <label htmlFor="website" className='text-lg  text-light-primary'>Job Level</label>
+                    <label htmlFor="website" className='text-lg  text-light-primary'>Job Level <span className='text-red-500'>*</span> </label>
                     <select className='input' name="joblevel"
                             onChange={handleChange}
                             value={data.joblevel}
@@ -244,7 +249,7 @@ export function page({job}) {
                 <div
                     className='flex w-full flex-col gap-2'
                   >
-                    <label htmlFor="title" className='text-lg text-light-primary'>Application Deadline</label>
+                    <label htmlFor="title" className='text-lg text-light-primary'>Application Deadline <span className='text-red-500'>*</span> </label>
                     <input
                       type="date"
                       id='deadline'
@@ -258,7 +263,7 @@ export function page({job}) {
                   <div
                     className='flex w-full flex-col gap-2'
                   >
-                    <label htmlFor="title" className='text-lg  text-light-primary'>Company Logo</label>
+                    <label htmlFor="title" className='text-lg  text-light-primary'>Company Logo <span className='text-red-500'>*</span> </label>
                     <input
                       type="file"
                       name='image'
@@ -270,7 +275,7 @@ export function page({job}) {
                   <div
                     className='flex w-full flex-col gap-2'
                   >
-                    <label htmlFor="title" className='text-lg  text-light-primary'>Job Description</label>
+                    <label htmlFor="title" className='text-lg  text-light-primary'>Job Description <span className='text-red-500'>*</span> </label>
                     <textarea
                       type="text"
                       name='description'

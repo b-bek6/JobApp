@@ -5,9 +5,9 @@ import Banner from '@/public/assets/images/banner.png'
 export default function Home() {
   return (
     <div className='bg-[#ddfadf86]'>
-        <div className='flex container flex-col md:flex-row '>
+        <div className='grid gap-12 md:gap-0 md:flex container flex-col md:flex-row '>
             
-            <div className='flex justify-center flex-col gap-8 md:w-1/2 md:m-40 order-2 md:order-1 max-w-lg m-2'>
+            <div className='flex justify-center flex-col gap-4 md:w-1/2 md:m-40 order-2 md:order-1  m-2'>
                 <div className='text-4xl md:text-6xl font-extrabold' >
                     Find A <span className='text-primary'>Job</span>  That <span className='text-primary'>Matches</span>  Your Passion 
                 </div>

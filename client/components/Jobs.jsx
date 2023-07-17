@@ -15,8 +15,8 @@ export default function page() {
   },[]);
   
   return (
-    <div>
-        <div className='bg-secondary p-6 text-2xl font-Poppins flex justify-center'>All Popular Listed Jobs</div>
+    <div className=''>
+        <div className=' p-6 text-2xl font-Poppins flex justify-center'>All Popular Listed Jobs</div>
         <div className=' container grid'>
         
       {

@@ -5,7 +5,7 @@ import axios from 'axios';
 import Link from 'next/link';
 
 
-export default function page() {
+export default function EmployerJobs() {
   const [jobs, setJobs] = useState([])
   useEffect(()=>{
     axios.get('http://localhost:8001/api/jobs/employer',{

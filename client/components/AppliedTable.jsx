@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import {AiOutlineDelete, AiFillEdit, AiOutlineEye} from 'react-icons/ai'
 import Link from 'next/link'
+
 export default function AppliedTable({id}) {
     const [job, setJob] = useState({})
     const [remove, setRemove] = useState(false)

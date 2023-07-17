@@ -6,7 +6,9 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import JobDetails from '@components/JobDetails'
-import { useParams } from 'next/navigation'
+import { redirect, useParams } from 'next/navigation'
+import Link from 'next/link'
+
 
 export function SingleProduct(ctx) {
     const { slug }  = useParams();
@@ -27,10 +29,9 @@ export function SingleProduct(ctx) {
             setSpinner(false)
         })
     },[])
-    const arr = Object.entries(job);
     console.log(ctx.params?.slug)
     function applyJobs () {
-        console.log(job._id)
+        console.log(job?._id)
         axios.post('http://localhost:8001/api/apply',{
 
                 "applied_jobs":[
@@ -54,7 +55,7 @@ export function SingleProduct(ctx) {
             ?
             <div className='bg-secondary p-6 text-2xl font-Poppins flex justify-center'><Spinner /></div>
             :
-            <div className='bg-secondary p-6 text-2xl font-Poppins flex justify-center'>{job.name} <small>{` (${job.joblevel}) `}</small> - {job.company_name}</div>
+            <div className='bg-secondary p-6 text-2xl font-Poppins flex justify-center'>{job?.name} <small>{` (${job?.joblevel}) `}</small> - {job?.company_name}</div>
 
         }
         {
@@ -64,7 +65,10 @@ export function SingleProduct(ctx) {
         }
         <div className='container'>
             <div className='m-3 flex justify-center gap-4'>
-                <button className='btn bg-secondary text-black'>View Company</button>
+
+                <Link href={`${job?.company_website}`} passHref>
+                    <button className='btn bg-secondary text-black'>View Company</button>
+                </Link>
                 {
                     redux_user?.role == 'employer'
                     ?
