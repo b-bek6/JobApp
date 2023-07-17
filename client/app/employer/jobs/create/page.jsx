@@ -36,25 +36,27 @@ export function page({job}) {
         offered_salary:"",
         deadline:"",
         type:"",
+        image:[],
         description:""
 
     })
     console.log(job)
     function handleSubmit(e){
         e.preventDefault();
-        axios.post("https://job-1c3nlgegi-b-bek6.vercel.app/api/jobs",{
-            "name" : data.name,
-            "joblevel": data.joblevel,
-            "category": data.category,
-            "no_of_vacancy": data.no_of_vacancy,
-            "company_name": data.company_name,
-            "location": data.location,
-            "offered_salary": data.offered_salary,
-            "deadline" : data.deadline,
-            "type": data.type,
-            "description": data.description
+        let form_data = new FormData();
+        form_data.append("name",data.name)
+        form_data.append("joblevel", data.joblevel)
+        form_data.append("category", data.category)
+        form_data.append("no_of_vacancy", data.no_of_vacancy)
+        form_data.append("company_name", data.company_name)
+        form_data.append("location", data.location)
+        form_data.append("offered_salary", data.offered_salary)
+        form_data.append("deadline" , data.deadline)
+        form_data.append("type", data.type)
+        form_data.append("image",data.image)
+        form_data.append("description", data.description)
 
-        },{
+        axios.post("http://localhost:8001/api/jobs", form_data ,{
             headers:{
                 Authorization: "Bearer "+ localStorage.getItem("token")
             }
@@ -70,6 +72,7 @@ export function page({job}) {
                 offered_salary:"",
                 deadline:"",
                 type:"",
+                image:[],
                 description:""
             })
         }).catch(err => {
@@ -78,7 +81,10 @@ export function page({job}) {
 
     }
     function handleChange(e) {
-        setData({...data, [e.target.name]: e.target.value })
+        // console.log(e.target.files[0]);
+        // console.log(e.target.value)
+        // setData({...data, [e.target.name]: e.target.value })
+        setData({...data, [e.target.name]: e.target.type=="file" ? e.target.files[0] : e.target.value })
     }
 
 
@@ -252,13 +258,13 @@ export function page({job}) {
                   <div
                     className='flex w-full flex-col gap-2'
                   >
-                    <label htmlFor="title" className='text-lg  text-light-primary'>Job Application Link</label>
+                    <label htmlFor="title" className='text-lg  text-light-primary'>Company Logo</label>
                     <input
-                      type="text"
-                      id='applicationLink'
-                      name='applicationLink'
-                      placeholder='Job Application Link'
+                      type="file"
+                      name='image'
                       className='input'
+                      onChange={handleChange}
+                      // value={data.image}
                     />
                   </div>
                   <div

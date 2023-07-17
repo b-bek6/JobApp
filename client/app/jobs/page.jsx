@@ -12,7 +12,7 @@ export default function page(ctx) {
   const [jobs, setJobs] = useState([])
   let get
   useEffect(()=>{
-    axios.get(`https://job-1c3nlgegi-b-bek6.vercel.app/api/jobs`).then(response => {
+    axios.get(`http://localhost:8001/api/jobs`).then(response => {
       setJobs(response.data.data[0].jobs);
   });
   },[]);
@@ -20,14 +20,14 @@ export default function page(ctx) {
     const  handleSearch =  async (e) =>{
       e.preventDefault()
       router.push(`/jobs?search_term=${e.target.search_term.value}`)
-        axios.get(`https://job-1c3nlgegi-b-bek6.vercel.app/api/jobs?search_term=${e.target.search_term.value}`).then(response => {
+        axios.get(`http://localhost:8001/api/jobs?search_term=${e.target.search_term.value}`).then(response => {
           setJobs(response.data.data[0].jobs);
       });
     }
     const  handlePerPage =  async (e) =>{
       e.preventDefault()
       router.push(`/jobs?per_page=${e.target.value}`)
-        axios.get(`https://job-1c3nlgegi-b-bek6.vercel.app/api/jobs?per_page=${e.target.value}`).then(response => {
+        axios.get(`http://localhost:8001/api/jobs?per_page=${e.target.value}`).then(response => {
           setJobs(response.data.data[0].jobs);
       });
     }

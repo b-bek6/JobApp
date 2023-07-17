@@ -59,9 +59,9 @@ const JobSchema = new Schema({
     description: {
         type: String
     },
-    // images:{
-    //     type:[String]
-    // },
+    images:{
+        type:[String]
+    },
     created_by: {
         type:Schema.ObjectId,
         required: true,

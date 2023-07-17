@@ -54,16 +54,9 @@ const fetchEmployerJobs = async(req, res, next ) => {
     }
 }
 const storeJobs = async (req, res, next) => {
-    // console.log(req.files);
-    // let images = []
-    // for (let index = 0; index < req.files.length; index++) {
-    //     images.push(req.files[index].filename);
-    // }
-    // console.log(req.file);
-    // let image = req.file.filename;
+    let image = req.file.filename;
     try {
-        // let job = await Jobs.create({...req.body, images:image, created_by:req.user._id});
-        let job = await Jobs.create({...req.body, created_by:req.user._id});
+        let job = await Jobs.create({...req.body, images:image, created_by:req.user._id});
         res.send(job);
     } catch (err) {
         res.send(err);
@@ -72,47 +65,27 @@ const storeJobs = async (req, res, next) => {
 
 
 const updateJobs = async(req, res, next) => {
-    // console.log(req.file.image);
-    // console.log(req.params.id);
-    // let old_image = job_data.images
-    // let image = [];
-    // if(sent_image){
-    //     image = req.file.filename;
-    //     old_image.forEach(img => {
-    //         fs.unlinkSync(path.resolve("uploads",img))
-    //     });
-    // }
-    // old_image.forEach(img => {
-    //     if(sent_images?.includes(img)){
-    //         images.push(img);
-    //     } else {
-    //         fs.unlinkSync(path.resolve("uploads",img))
-    //     }
-    // })
-
-    
-    // let sent_image = req.file?.filename;
+    let sent_image = req.file?.filename;
     let job_data = await Jobs.findById(req.params.id);
-    // let old_image = job_data?.images
-        // if(sent_image){
-        //     old_image?.forEach(img => {
-        //         fs.unlinkSync(path.resolve("uploads",img));
-        //     });
+    let old_image = job_data?.images
+        if(sent_image){
+            old_image?.forEach(img => {
+                fs.unlinkSync(path.resolve("uploads",img));
+            });
             try {
-                let Job = await Jobs.findByIdAndUpdate(req.params.id, {...req.body} , {runValidators:true, new: true})
-                // let Job = await Jobs.findByIdAndUpdate(req.params.id, {...req.body, images: sent_image}, {runValidators:true, new: true})
+                let Job = await Jobs.findByIdAndUpdate(req.params.id, {...req.body, images: sent_image}, {runValidators:true, new: true})
                 res.send(Job)
             } catch (err) {
                 next(err)
             }
-    //     }else{
-    //         try {
-    //             let Job = await Jobs.findByIdAndUpdate(req.params.id, {...req.body}, {runValidators:true, new: true})
-    //             res.send(Job)
-    //         } catch (err) {
-    //             next(err)
-    //         }
-    // }
+        }else{
+            try {
+                let Job = await Jobs.findByIdAndUpdate(req.params.id, {...req.body}, {runValidators:true, new: true})
+                res.send(Job)
+            } catch (err) {
+                next(err)
+            }
+    }
 }
 
 const removeJobs = async (req, res, next) => {
@@ -120,9 +93,9 @@ const removeJobs = async (req, res, next) => {
         let job = await Jobs.findById(req.params.id);
         if(job){
             await Jobs.findByIdAndDelete(req.params.id);
-            // job.images?.forEach(img=>{
-            //     fs.unlinkSync(path.resolve("uploads",img));
-            // })
+            job.images?.forEach(img=>{
+                fs.unlinkSync(path.resolve("uploads",img));
+            })
             return res.status(204).end();
         } else {
             res.status(404).send("Resource not found");
