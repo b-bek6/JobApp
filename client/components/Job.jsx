@@ -15,7 +15,7 @@ export default function Job({job}) {
               height={1000}
               width={1000}
               className="w-[100px] rounded-2xl"
-              src={`https://job-app-ashy-theta.vercel.app/${job.images}`}
+              src={`http://localhost:8001/${job.images}`}
               alt="Job Image" />
             </>
             :

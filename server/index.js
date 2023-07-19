@@ -1,13 +1,23 @@
 const express = require("express");
-const multer = require("multer");
 require('dotenv').config();
 require('./config/database');
+const cloudinary = require ('cloudinary')
+
 const cors = require('cors')
 const app = express();
 const auth_route = require('./router/auth');
 const jobs_route = require('./router/jobs');
 const jobs_apply = require('./router/apply');
+
 app.use(express.static('uploads'));
+
+// CLOUDINARY 
+cloudinary.config({ 
+    cloud_name: process.env.CLOUD_NAME, 
+    api_key: process.env.API_KEY, 
+    api_secret: process.env.API_SECRET
+  });
+
 
 // MIDDLEWARE
 app.use(express.json()); // req.body (change incomming req to the json format)

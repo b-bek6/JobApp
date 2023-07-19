@@ -30,7 +30,7 @@ export default function page() {
     }
     setErrors(temp)
     if(validation){
-      axios.post(`https://job-app-ashy-theta.vercel.app/api/signup`,{
+      axios.post(`http://localhost:8001/api/signup`,{
       "name": name,
       "role": event.target.role.value,
       "password": event.target.password.value,

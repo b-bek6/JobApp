@@ -16,7 +16,7 @@ export default function SingleProduct() {
     const [remove, setRemove] = useState(false)
     
     useEffect(()=>{
-        axios.get(`https://job-app-ashy-theta.vercel.app/api/jobs/${slug}`)
+        axios.get(`http://localhost:8001/api/jobs/${slug}`)
         .then(res => {
             setJob(res.data.job)
             setSpinner(false);
@@ -28,7 +28,7 @@ export default function SingleProduct() {
         
     },[])
     function handleDelete () {
-        axios.delete(`https://job-app-ashy-theta.vercel.app/api/jobs/${slug}`,{
+        axios.delete(`http://localhost:8001/api/jobs/${slug}`,{
           headers : {
             Authorization: "Bearer " + localStorage.getItem("token")
           }
@@ -55,6 +55,9 @@ export default function SingleProduct() {
             :
             <div className='container'>
                 <div className='m-3 flex justify-center gap-4'>
+
+
+
                     <button onClick={handleDelete} className='btn bg-secondary text-black'>Delete Job</button>
                     {
                         redux_user?.role == 'employer'
@@ -82,6 +85,14 @@ export default function SingleProduct() {
                 }
             </div>
         }
+
+
+
+<button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+  Toggle modal
+</button>
+
+
     </div>
   )
 }

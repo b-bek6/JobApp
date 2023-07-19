@@ -1,8 +1,10 @@
 "use client"
 import ProtectedPage from '@components/ProtectedPage';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
+import { toast } from 'react-toastify';
+
 
 /* 
 {"job":{"_id":"64a429c72a9c4b40e561c421",
@@ -24,6 +26,7 @@ import React, { useState } from 'react'
 */
 
 export function page({job}) {
+    const router = useRouter();
     const [submitted, setSubmitted] = useState(false)
     const [error, setError] = useState(false)
     const [data, setData] = useState({
@@ -58,28 +61,49 @@ export function page({job}) {
         form_data.append("image",data.image)
         form_data.append("description", data.description)
 
-        axios.post("https://job-app-ashy-theta.vercel.app/api/jobs", form_data ,{
+        axios.post("http://localhost:8001/api/jobs", form_data ,{
             headers:{
                 Authorization: "Bearer "+ localStorage.getItem("token")
             }
         }).then(res => {
             setSubmitted(true)
             setData({
-                name:"",
-                joblevel:"",
-                company_website:"",
-                category:"",
-                no_of_vacancy:"",
-                company_name:"",
-                location:"",
-                offered_salary:"",
-                deadline:"",
-                type:"",
-                image:[],
-                description:""
-            })
+              name:"",
+              joblevel:"",
+              company_website:"",
+              category:"",
+              no_of_vacancy:"",
+              company_name:"",
+              location:"",
+              offered_salary:"",
+              deadline:"",
+              type:"",
+              image:[],
+              description:""
+          })
+            toast.success('Job Posted Successfully!', {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              });
+              router.push('/employer/jobs')
         }).catch(err => {
             setError(true)
+            toast.error('Something went wrong!', {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              });
         })
 
     }
@@ -120,6 +144,7 @@ export function page({job}) {
                       className='input'
                       value={data.company_name}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div
@@ -127,12 +152,13 @@ export function page({job}) {
                   >
                     <label htmlFor="website" className='text-lg  text-light-primary'>Company Website</label>
                     <input
-                      type="text"
+                      type="url"
                       name='company_website'
                       placeholder='Website Link'
                       value={data.company_website}
                       onChange={handleChange}
                       className='input'
+                      required
                     />
                   </div>
                 </div>
@@ -199,6 +225,7 @@ export function page({job}) {
                       className='input'
                       value={data.location}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div
@@ -212,6 +239,7 @@ export function page({job}) {
                       className='input'
                       onChange={handleChange}
                       value={data.offered_salary}
+                      required
                     />
                   </div>
                 </div>
@@ -258,6 +286,7 @@ export function page({job}) {
                       className='input'
                       value={data.deadline}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div

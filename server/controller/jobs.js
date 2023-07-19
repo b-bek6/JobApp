@@ -55,9 +55,13 @@ const fetchEmployerJobs = async(req, res, next ) => {
     }
 }
 const storeJobs = async (req, res, next) => {
-    let image = req.file.filename;
+    let image = req.file.path;
     try {
-        let job = await Jobs.create({...req.body, images:image, created_by:req.user._id});
+        let job = await Jobs.create({...req.body, images:req.file.filename, created_by:req.user._id});
+
+        cloudinary.v2.uploader.upload( req.file.path ,(err,res)=>{
+            console.log(res);
+        });
         res.send(job);
     } catch (err) {
         res.send(err);
