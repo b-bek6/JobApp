@@ -55,7 +55,7 @@ const fetchEmployerJobs = async(req, res, next ) => {
     }
 }
 const storeJobs = async (req, res, next) => {
-    let image = req.file.path;
+    let image = req.file?.path;
     try {
         let job = await Jobs.create({...req.body, images:req.file.filename, created_by:req.user._id});
 

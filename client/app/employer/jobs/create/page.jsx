@@ -61,7 +61,7 @@ export function page({job}) {
         form_data.append("image",data.image)
         form_data.append("description", data.description)
 
-        axios.post("http://localhost:8001/api/jobs", form_data ,{
+        axios.post("https://job-app-ashy-theta.vercel.app/api/jobs", form_data ,{
             headers:{
                 Authorization: "Bearer "+ localStorage.getItem("token")
             }

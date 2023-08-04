@@ -8,7 +8,7 @@ export function page() {
   const [applies, setApplies] = useState([])
 
     useEffect(()=>{
-        axios.get('http://localhost:8001/api/apply',{
+        axios.get('https://job-app-ashy-theta.vercel.app/api/apply',{
           headers: {
             Authorization : "Bearer " +localStorage.getItem("token")
 
