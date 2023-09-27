@@ -10,7 +10,7 @@ export default function AppliedTable({id}) {
     const [remove, setRemove] = useState(false)
     const [deleteModel, setDeleteModel] = useState(false)
     useEffect(()=>{
-        axios.get(`https://job-app-ashy-theta.vercel.app/api/jobs/${id}`)
+        axios.get(`http://localhost:8001/api/jobs/${id}`)
         .then(res => {
             setJob(res.data.job)
             console.log(res.data)
@@ -22,7 +22,7 @@ export default function AppliedTable({id}) {
       },[])
       function removeApply (id) {
         // console.log(id)
-        axios.delete(`https://job-app-ashy-theta.vercel.app/api/apply/${id}`,{
+        axios.delete(`http://localhost:8001/api/apply/${id}`,{
           headers : {
             Authorization: "Bearer " + localStorage.getItem("token")
           }
